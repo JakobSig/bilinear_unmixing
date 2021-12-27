@@ -14,6 +14,7 @@ ascZ=0;
 delta=1;
 % Initial values for endmenbers
 Avca=vca(Y','endmembers',r);
+% and abundances
 Svca= hyperFcls(Y',Avca)';
 Bvca=createB(Avca);
 
@@ -24,7 +25,7 @@ Ad=[Avca;delta*ones(1,r)];
 Yd=[Y delta*ones(P,1)];
 
 
-% Initial values for abundances
+% Initial values for bilinear abundances
 Z=nonegReg((Yd-Svca*Ad')',Bd,[])';
 Z=0.1*rand(size(Z));
 hZ=0.001;
@@ -37,7 +38,7 @@ hZ=0.001;
 [Abil,Bbil,Sbil,Zbil]=sparseBilinearUnmixing(Y,Avca,Svca,Z,hS,hZ,delta,q,ascZ);
 
 
-% Fan method
+% Run Fan method
 Sb0=createB(Svca);
 Bd=createB(Avca);
 Bd=[Bd; zeros(1,N)];
